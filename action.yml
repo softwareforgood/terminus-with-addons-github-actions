@@ -1,0 +1,26 @@
+name: Setup Terminus with add-ons
+description: "Install and configure the Pantheon CLI tool, Terminus."
+branding:
+  icon: "cloud"
+  color: "yellow"
+inputs:
+  pantheon-machine-token:
+    description: "Machine token used to authenticate with Pantheon."
+    required: false
+  terminus-version:
+    description: |
+      The full version of Terminus to install. If omitted, the latest version is used.
+    required: false
+  disable-cache:
+    description: Disable session cache and force a new session to be initiated.
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: configure Terminus
+      uses: pantheon-systems/terminus-github-actions@v1.2.1
+      with:
+        pantheon-machine-token: "${{ inputs.pantheon-machine-token }}"
+        terminus-version: ${{ input.terminus-version}}
+        disable-cache: ${{ input.disable-cache }}
